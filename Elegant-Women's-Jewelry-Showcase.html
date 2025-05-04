@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Jewelry Collection</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script> <!-- Loads Tailwind CSS (version 3.4.16) from its official CDN. Tailwind is a utility-first CSS framework that allows rapid styling with pre-defined classes. -->
+    <script>
+        tailwind.config={
+          theme:{
+            extend:{
+              colors:{
+                primary:'#D90166',
+                secondary:'#000000'
+              },
+              borderRadius:{
+                'none':'0px',
+                'sm':'4px',
+                DEFAULT:'8px',
+                'md':'12px',
+                'lg':'16px',
+                'xl':'20px',
+                '2xl':'24px',
+                '3xl':'32px',
+                'full':'9999px',
+                'button':'8px'
+               }
+              }
+             }
+            }
+    </script> <!-- This is a custom Tailwind configuration defined directly in the HTML. -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Prepares the browser to connect earlier to Google Fonts, improving loading performance. Optimizes speed by resolving the domain before it’s actually needed -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- connects to fonts.gstatic.com, which is where the actual font files come from. Uses crossorigin because the fonts come from another domain. -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet"> <!-- Loads the Pacifico font, a decorative script font. The display=swap helps improve rendering behavior when the font loads slowly. -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"> <!-- Loads two fonts from Google Fonts:
+    •   Playfair Display (for elegant headings)
+    •   Poppins (for modern, clean body text)
+    •   Multiple font weights are included to support variations like bold or semi-bold. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"> <!-- Loads Remix Icon version 4.6.0 from a CDN. These are modern, scalable SVG icons that can be used with classes like <i class="ri-heart-line"></i> for a heart icon. -->
+    
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; } /* */ /* Targets all elements whose class starts with ri- (Remix Icon classes). Applies a default icon (unicode \f3c2) to them if they haven’t been set. :where() is a zero-specificity selector — so it can be easily overridden.*/
+        
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        } /* Playfair Display, a more elegant serif font, adds a luxury feel appropriate for jewelry branding. */
+        
+        .hero-section {
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746359024/image1_zybfnh.jpg');
+            background-size: cover; /* ensures the image fills the section. */
+            background-position: center;
+        }
+        
+        .category-item:hover .category-overlay {
+            opacity: 1;
+        } /* When user hovers over a .category-item, it reveals a .category-overlay (e.g., text or effects over category images) by setting its opacity to 1. */
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        } /* Lifts the product card slightly upward when hovered, giving a floating effect for interactivity and elegance. */
+        
+        .product-card:hover .quick-view {
+            opacity: 1;
+        } /* On hover, the .quick-view button inside the product card becomes visible (opacity set to 1). */
+        
+        input[type="email"]:focus {
+            outline: none;
+            border-color: #D90166;
+        } /* When an email input is focused:
+    •   Removes the default outline
+    •   Adds a custom border color (#D90166, the brand color) */
+
+        .custom-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #D90166;
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+        } /* Removes default browser styles with appearance and -webkit-appearance. Custom square checkbox styled with brand color border, rounded corners, and pointer cursor. */
+
+        .custom-checkbox:checked {
+            background-color: #D90166;
+        } /* When checked, the box fills with the primary color. */
+
+        .custom-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            top: 2px;
+            left: 6px;
+            transform: rotate(45deg);
+        } /* Adds a white checkmark (✓) inside the box using CSS borders and positioning. */
+
+        .testimonial-slider {
+            scroll-snap-type: x mandatory;
+        } /* Enables horizontal scroll snapping for a carousel of testimonials. */
+
+        .testimonial-slide {
+            scroll-snap-align: center;
+        } /* Each testimonial “slide” snaps to center when scrolling horizontally. */
+
+        .category-scroll {
+            scrollbar-width: none;
+        } /* Hides scrollbar in Firefox. */
+
+        .category-scroll::-webkit-scrollbar {
+            display: none;
+        } /* Hides scrollbar in WebKit browsers like Chrome and Safari. */
+        
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-90 border-b border-gray-800">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="#" class="text-3xl font-['Pacifico'] text-white">logo</a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#" class="text-white hover:text-primary transition-colors duration-300">Home</a>
+                <a href="#" class="text-white hover:text-primary transition-colors duration-300">Collections</a>
+                <a href="#" class="text-white hover:text-primary transition-colors duration-300">New Arrivals</a>
+                <a href="#" class="text-white hover:text-primary transition-colors duration-300">About</a>
+                <a href="#" class="text-white hover:text-primary transition-colors duration-300">Contact</a>
+            </nav>
+            
+            <!-- Mobile Navigation Toggle -->
+            <div class="flex items-center space-x-4 md:space-x-6">
+                <button class="w-10 h-10 flex items-center justify-center text-white hover:text-primary">
+                    <i class="ri-search-line ri-xl"></i>
+                </button>
+                <button class="w-10 h-10 flex items-center justify-center text-white hover:text-primary">
+                    <i class="ri-user-line ri-xl"></i>
+                </button>
+                <button class="w-10 h-10 flex items-center justify-center text-white hover:text-primary relative">
+                    <i class="ri-shopping-bag-line ri-xl"></i>
+                    <span class="absolute -top-1 -right-1 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">3</span>
+                </button>
+                <button class="w-10 h-10 flex items-center justify-center text-white hover:text-primary md:hidden">
+                    <i class="ri-menu-line ri-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero-section h-screen flex items-center justify-center pt-16">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">Discover Timeless Elegance</h1>
+            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90">Exquisite jewelry pieces that celebrate the beauty and confidence of every woman</p>
+            <button class="bg-primary text-white px-8 py-3 rounded-button text-lg font-medium hover:bg-opacity-90 transition-all duration-300 whitespace-nowrap">Shop Now</button>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-16 bg-black">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">Browse by Category</h2>
+            
+            <div class="category-scroll flex overflow-x-auto pb-6 md:grid md:grid-cols-5 md:gap-6 gap-4">
+                <div class="category-item flex-shrink-0 w-40 md:w-full mx-2 md:mx-0 cursor-pointer group">
+                    <div class="relative rounded-full overflow-hidden mb-3 aspect-square">
+                        <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746360303/image2_k6yhwi.jpg" alt="Necklaces" class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-110">
+                        <div class="category-overlay absolute inset-0 bg-primary bg-opacity-30 opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="text-white font-medium">View All</span>
+                        </div>
+                    </div>
+                    <h3 class="text-center font-medium">Necklaces</h3>
+                </div>
+                
+                <div class="category-item flex-shrink-0 w-40 md:w-full mx-2 md:mx-0 cursor-pointer group">
+                    <div class="relative rounded-full overflow-hidden mb-3 aspect-square">
+                        <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746360787/image3_x5sfz4.jpg" alt="Earrings" class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-110">
+                        <div class="category-overlay absolute inset-0 bg-primary bg-opacity-30 opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="text-white font-medium">View All</span>
+                        </div>
+                    </div>
+                    <h3 class="text-center font-medium">Earrings</h3>
+                </div>
+                
+                <div class="category-item flex-shrink-0 w-40 md:w-full mx-2 md:mx-0 cursor-pointer group">
+                    <div class="relative rounded-full overflow-hidden mb-3 aspect-square">
+                        <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746360885/image4_gr45vr.jpg" alt="Rings" class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-110">
+                        <div class="category-overlay absolute inset-0 bg-primary bg-opacity-30 opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="text-white font-medium">View All</span>
+                        </div>
+                    </div>
+                    <h3 class="text-center font-medium">Rings</h3>
+                </div>
+                
+                <div class="category-item flex-shrink-0 w-40 md:w-full mx-2 md:mx-0 cursor-pointer group">
+                    <div class="relative rounded-full overflow-hidden mb-3 aspect-square">
+                        <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746360936/image5_enlxen.jpg" alt="Bracelets" class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-110">
+                        <div class="category-overlay absolute inset-0 bg-primary bg-opacity-30 opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="text-white font-medium">View All</span>
+                        </div>
+                    </div>
+                    <h3 class="text-center font-medium">Bracelets</h3>
+                </div>
+                
+                <div class="category-item flex-shrink-0 w-40 md:w-full mx-2 md:mx-0 cursor-pointer group">
+                    <div class="relative rounded-full overflow-hidden mb-3 aspect-square">
+                        <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746360993/image6_g4fvxv.jpg" alt="Hair Accessories" class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-110">
+                        <div class="category-overlay absolute inset-0 bg-primary bg-opacity-30 opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="text-white font-medium">View All</span>
+                        </div>
+                    </div>
+                    <h3 class="text-center font-medium">Hair Accessories</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Products Section -->
+    <section class="py-16 bg-black">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">Trending Now</h2>
+                <div class="flex space-x-2">
+                    <button class="w-10 h-10 flex items-center justify-center border border-gray-700 rounded-full hover:border-primary hover:text-primary transition-colors duration-300">
+                        <i class="ri-arrow-left-s-line ri-lg"></i>
+                    </button>
+                    <button class="w-10 h-10 flex items-center justify-center border border-gray-700 rounded-full hover:border-primary hover:text-primary transition-colors duration-300">
+                        <i class="ri-arrow-right-s-line ri-lg"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product Card 1 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden transition-all duration-300">
+                    <div class="relative">
+                        <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746361107/image7_pegih3.jpg" alt="Diamond Pendant Necklace" class="w-full h-80 object-cover object-top">
+                        <div class="quick-view absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                            <button class="bg-white text-black px-6 py-2 rounded-button font-medium hover:bg-primary hover:text-white transition-colors duration-300 whitespace-nowrap">Quick View</button>
+                        </div>
+                        <button class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 backdrop-blur-sm rounded-full hover:bg-primary transition-colors duration-300">
+                            <i class="ri-heart-line ri-lg"></i>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-medium mb-2">Pearl Elegance Necklace</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$1,299.00</span>
+                            <div class="flex">
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-half-fill text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 2 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden transition-all duration-300">
+                    <div class="relative">
+                        <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746361169/image8_yitcsi.jpg" alt="Diamond Earrings" class="w-full h-80 object-cover object-top">
+                        <div class="quick-view absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                            <button class="bg-white text-black px-6 py-2 rounded-button font-medium hover:bg-primary hover:text-white transition-colors duration-300 whitespace-nowrap">Quick View</button>
+                        </div>
+                        <button class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 backdrop-blur-sm rounded-full hover:bg-primary transition-colors duration-300">
+                            <i class="ri-heart-line ri-lg"></i>
+                        </button>
+                        <div class="absolute top-4 left-4 bg-primary text-white text-xs px-3 py-1 rounded-full">New</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-medium mb-2">Diamond Drop Earrings</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$2,450.00</span>
+                            <div class="flex">
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 3 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden transition-all duration-300">
+                    <div class="relative">
+                        <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746361224/image9_und3zw.jpg" alt="Gold Bracelet" class="w-full h-80 object-cover object-top">
+                        <div class="quick-view absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                            <button class="bg-white text-black px-6 py-2 rounded-button font-medium hover:bg-primary hover:text-white transition-colors duration-300 whitespace-nowrap">Quick View</button>
+                        </div>
+                        <button class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 backdrop-blur-sm rounded-full hover:bg-primary transition-colors duration-300">
+                            <i class="ri-heart-line ri-lg"></i>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-medium mb-2">Royal Gold Bracelet</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$1,850.00</span>
+                            <div class="flex">
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-line text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="border border-white text-white px-8 py-3 rounded-button hover:bg-primary hover:border-primary transition-colors duration-300 whitespace-nowrap">View All Products</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Banner -->
+    <section class="py-16 bg-black">
+        <div class="container mx-auto px-4">
+            <div class="relative rounded-lg overflow-hidden">
+                <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746361274/image10_flvhod.jpg" alt="Luxury Collection" class="w-full h-96 object-cover object-top">
+                <div class="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent flex items-center">
+                    <div class="p-8 md:p-16 max-w-xl">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">The Diamond Collection</h2>
+                        <p class="mb-8 text-gray-200">Discover our exclusive selection of handcrafted diamond pieces, designed for the modern woman who appreciates timeless elegance.</p>
+                        <button class="bg-primary text-white px-8 py-3 rounded-button hover:bg-opacity-90 transition-colors duration-300 whitespace-nowrap">Explore Collection</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="py-16 bg-black">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">Bestsellers</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Product Card 1 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden transition-all duration-300">
+                    <div class="relative">
+                        <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746364060/image11_etyplj.jpg" alt="Diamond Ring" class="w-full h-64 object-cover object-top">
+                        <div class="quick-view absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                            <button class="bg-white text-black px-6 py-2 rounded-button font-medium hover:bg-primary hover:text-white transition-colors duration-300 whitespace-nowrap">Quick View</button>
+                        </div>
+                        <button class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 backdrop-blur-sm rounded-full hover:bg-primary transition-colors duration-300">
+                            <i class="ri-heart-line ri-lg"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-medium mb-2">Eternity Diamond Ring</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$3,199.00</span>
+                            <div class="flex">
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 2 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden transition-all duration-300">
+                    <div class="relative">
+                        <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746364126/image12_kz9dg1.jpg" alt="Sapphire Necklace" class="w-full h-64 object-cover object-top">
+                        <div class="quick-view absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                            <button class="bg-white text-black px-6 py-2 rounded-button font-medium hover:bg-primary hover:text-white transition-colors duration-300 whitespace-nowrap">Quick View</button>
+                        </div>
+                        <button class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 backdrop-blur-sm rounded-full hover:bg-primary transition-colors duration-300">
+                            <i class="ri-heart-line ri-lg"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-medium mb-2">Sapphire Pendant</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$2,750.00</span>
+                            <div class="flex">
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-half-fill text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 3 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden transition-all duration-300">
+                    <div class="relative">
+                        <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746364192/image13_th9vps.jpg" alt="Pearl Earrings" class="w-full h-64 object-cover object-top">
+                        <div class="quick-view absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                            <button class="bg-white text-black px-6 py-2 rounded-button font-medium hover:bg-primary hover:text-white transition-colors duration-300 whitespace-nowrap">Quick View</button>
+                        </div>
+                        <button class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 backdrop-blur-sm rounded-full hover:bg-primary transition-colors duration-300">
+                            <i class="ri-heart-line ri-lg"></i>
+                        </button>
+                        <div class="absolute top-4 left-4 bg-primary text-white text-xs px-3 py-1 rounded-full">Bestseller</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-medium mb-2">Pearl Drop Earrings</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$899.00</span>
+                            <div class="flex">
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-line text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 4 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden transition-all duration-300">
+                    <div class="relative">
+                        <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746364246/image14_ctjgzk.jpg" alt="Gold Bangle" class="w-full h-64 object-cover object-top">
+                        <div class="quick-view absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                            <button class="bg-white text-black px-6 py-2 rounded-button font-medium hover:bg-primary hover:text-white transition-colors duration-300 whitespace-nowrap">Quick View</button>
+                        </div>
+                        <button class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 backdrop-blur-sm rounded-full hover:bg-primary transition-colors duration-300">
+                            <i class="ri-heart-line ri-lg"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-medium mb-2">Diamond Bangle</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">$1,599.00</span>
+                            <div class="flex">
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-half-fill text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">What Our Customers Say</h2>
+            
+            <div class="relative">
+                <div class="testimonial-slider flex overflow-x-auto snap-x snap-mandatory pb-10 -mx-4 px-4 scrollbar-hide">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
+                        <div class="bg-black p-8 rounded-lg h-full">
+                            <div class="flex mb-4">
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                            </div>
+                            <p class="mb-6 text-gray-300 italic">"The Diamond Eternity Ring I purchased exceeded all my expectations. The craftsmanship is impeccable, and it sparkles beautifully in any light. Worth every penny!"</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746364356/image15_dflwcu.jpg" alt="Customer" class="w-full h-full object-cover object-top">
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Victoria Anderson</h4>
+                                    <p class="text-sm text-gray-400">New York, USA</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
+                        <div class="bg-black p-8 rounded-lg h-full">
+                            <div class="flex mb-4">
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                            </div>
+                            <p class="mb-6 text-gray-300 italic">"I've purchased several pieces from this collection, and each one is more beautiful than the last. The Pearl Drop Earrings are my absolute favorite - elegant and timeless."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746364420/image16_n0rdgu.jpg" alt="Customer" class="w-full h-full object-cover object-top">
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Sophia Martinez</h4>
+                                    <p class="text-sm text-gray-400">Miami, USA</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
+                        <div class="bg-black p-8 rounded-lg h-full">
+                            <div class="flex mb-4">
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-fill text-primary"></i>
+                                <i class="ri-star-half-fill text-primary"></i>
+                            </div>
+                            <p class="mb-6 text-gray-300 italic">"The customer service is as exceptional as the jewelry itself. When my bracelet needed resizing, they handled it with such care and professionalism. Truly a luxury experience."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746364478/image17_ytiewb.jpg" alt="Customer" class="w-full h-full object-cover object-top">
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Emily Johnson</h4>
+                                    <p class="text-sm text-gray-400">London, UK</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dots -->
+                <div class="flex justify-center mt-8 space-x-2">
+                    <button class="w-3 h-3 rounded-full bg-primary"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-600"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-600"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16 bg-gradient-to-b from-black to-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Join Our Collection</h2>
+                <p class="mb-8 text-gray-300">Subscribe to receive updates on new arrivals, special offers and exclusive events.</p>
+                
+                <form class="flex flex-col md:flex-row gap-4">
+                    <input type="email" placeholder="Your email address" class="flex-grow px-6 py-3 rounded-button bg-white text-black border-none focus:ring-2 focus:ring-primary text-sm">
+                    <button type="submit" class="bg-primary text-white px-8 py-3 rounded-button hover:bg-opacity-90 transition-colors duration-300 whitespace-nowrap">Subscribe</button>
+                </form>
+                
+                <div class="mt-6 flex items-center justify-center">
+                    <input type="checkbox" id="consent" class="custom-checkbox">
+                    <label for="consent" class="ml-3 text-sm text-gray-300">I agree to receive marketing emails and accept the <a href="#" class="text-primary hover:underline">Privacy Policy</a></label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Gallery -->
+    <section class="py-16 bg-black">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Follow Our Instagram</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">@luxuryjewelry</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <a href="#" class="block relative group overflow-hidden aspect-square">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746364594/image18_b86f42.jpg" alt="Instagram Post" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-primary bg-opacity-0 flex items-center justify-center transition-all duration-300 group-hover:bg-opacity-30">
+                        <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center">
+                            <i class="ri-heart-fill ri-lg mr-2"></i>
+                            <span>245</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="#" class="block relative group overflow-hidden aspect-square">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746364646/image19_ohyi9i.jpg" alt="Instagram Post" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-primary bg-opacity-0 flex items-center justify-center transition-all duration-300 group-hover:bg-opacity-30">
+                        <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center">
+                            <i class="ri-heart-fill ri-lg mr-2"></i>
+                            <span>189</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="#" class="block relative group overflow-hidden aspect-square">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746364713/image20_bzfr2u.jpg" alt="Instagram Post" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-primary bg-opacity-0 flex items-center justify-center transition-all duration-300 group-hover:bg-opacity-30">
+                        <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center">
+                            <i class="ri-heart-fill ri-lg mr-2"></i>
+                            <span>312</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="#" class="block relative group overflow-hidden aspect-square">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746364771/image21_mgewy6.jpg" alt="Instagram Post" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-primary bg-opacity-0 flex items-center justify-center transition-all duration-300 group-hover:bg-opacity-30">
+                        <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center">
+                            <i class="ri-heart-fill ri-lg mr-2"></i>
+                            <span>276</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="#" class="block relative group overflow-hidden aspect-square">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746364829/image22_loqmx8.jpg" alt="Instagram Post" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-primary bg-opacity-0 flex items-center justify-center transition-all duration-300 group-hover:bg-opacity-30">
+                        <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center">
+                            <i class="ri-heart-fill ri-lg mr-2"></i>
+                            <span>198</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="#" class="block relative group overflow-hidden aspect-square">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1746364887/image23_mshu4p.jpg" alt="Instagram Post" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-primary bg-opacity-0 flex items-center justify-center transition-all duration-300 group-hover:bg-opacity-30">
+                        <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center">
+                            <i class="ri-heart-fill ri-lg mr-2"></i>
+                            <span>254</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black pt-16 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <a href="#" class="text-3xl font-['Pacifico'] text-white mb-6 inline-block">logo</a>
+                    <p class="text-gray-400 mb-6">Exquisite jewelry pieces that celebrate the beauty and confidence of every woman.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-700 rounded-full hover:border-primary hover:text-primary transition-colors duration-300">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-700 rounded-full hover:border-primary hover:text-primary transition-colors duration-300">
+                            <i class="ri-instagram-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-700 rounded-full hover:border-primary hover:text-primary transition-colors duration-300">
+                            <i class="ri-pinterest-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-700 rounded-full hover:border-primary hover:text-primary transition-colors duration-300">
+                            <i class="ri-twitter-fill"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Shop</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Necklaces</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Earrings</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Rings</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Bracelets</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Hair Accessories</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">New Arrivals</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6">About</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Our Story</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Craftsmanship</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Sustainability</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Press</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Customer Care</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Size Guide</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Care Instructions</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Track Order</a></li>
+                        <li class="flex items-center space-x-2">
+                            <i class="ri-phone-fill text-primary"></i>
+                            <span>+1 (800) 123-4567</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="py-6 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Luxury Jewelry. All rights reserved.</p>
+                
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Terms of Service</a>
+                    <a href="#" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Shipping Policy</a>
+                    <a href="#" class="text-gray-500 text-sm hover:text-primary transition-colors duration-300">Refund Policy</a>
+                </div>
+                
+                <div class="flex items-center space-x-3 mt-4 md:mt-0">
+                    <i class="ri-visa-fill text-gray-400 text-2xl"></i>
+                    <i class="ri-mastercard-fill text-gray-400 text-2xl"></i>
+                    <i class="ri-paypal-fill text-gray-400 text-2xl"></i>
+                    <i class="ri-apple-fill text-gray-400 text-2xl"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const menuButton = document.querySelector('.ri-menu-line').parentElement;
+            
+            // Quick view buttons
+            const quickViewButtons = document.querySelectorAll('.quick-view button');
+            quickViewButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Quick view functionality would open a modal here');
+                });
+            });
+            
+            // Wishlist buttons
+            const wishlistButtons = document.querySelectorAll('.product-card .ri-heart-line');
+            wishlistButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (this.classList.contains('ri-heart-line')) {
+                        this.classList.remove('ri-heart-line');
+                        this.classList.add('ri-heart-fill');
+                        this.classList.add('text-primary');
+                    } else {
+                        this.classList.remove('ri-heart-fill');
+                        this.classList.remove('text-primary');
+                        this.classList.add('ri-heart-line');
+                    }
+                });
+            });
+            
+            // Testimonial slider dots
+            const dots = document.querySelectorAll('.flex.justify-center.mt-8 button');
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', function() {
+                    // Remove active class from all dots
+                    dots.forEach(d => d.classList.remove('bg-primary'));
+                    dots.forEach(d => d.classList.add('bg-gray-600'));
+                    
+                    // Add active class to clicked dot
+                    this.classList.remove('bg-gray-600');
+                    this.classList.add('bg-primary');
+                    
+                    // Scroll to the corresponding testimonial
+                    const testimonials = document.querySelectorAll('.testimonial-slide');
+                    if (testimonials[index]) {
+                        testimonials[index].scrollIntoView({ behavior: 'smooth', inline: 'center' });
+                    }
+                });
+            });
+            
+            // Newsletter form submission
+            const newsletterForm = document.querySelector('form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const emailInput = this.querySelector('input[type="email"]');
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    
+                    if (!emailInput.value) {
+                        alert('Please enter your email address');
+                        return;
+                    }
+                    
+                    if (!checkbox.checked) {
+                        alert('Please accept the Privacy Policy');
+                        return;
+                    }
+                    
+                    alert('Thank you for subscribing!');
+                    emailInput.value = '';
+                    checkbox.checked = false;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
